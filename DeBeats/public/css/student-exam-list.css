@@ -1,0 +1,185 @@
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.custom-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    max-width: 600px;
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 1050;
+    display: none;
+}
+
+.modal-header {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: #5a5a5a;
+}
+
+.modal-body {
+    font-size: 1.1em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.modal-footer {
+    text-align: right;
+}
+
+/* Close button */
+.btn-close {
+    background-color: #ff4757;  /* Vibrant red */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.1em;
+    text-align: center;
+}
+
+.btn-close:hover {
+    background-color: #e84118;  /* Darker red on hover */
+}
+
+.btn-close:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(255, 71, 87, 0.8); /* Red glow effect */
+}
+
+.btn-danger{
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    background-color: rgba(255, 23, 43, 0.8);
+}
+
+.btn-danger:hover{
+    background-color: #a42600;
+}
+
+
+/* Modal Title Styling */
+.modal-header strong {
+    color: #2f3542;
+}
+
+/* Styling for the modal content */
+.modal-body ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.modal-body ul li {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+/* Highlighting rows with clashes */
+.highlight-clash {
+background-color: #ffeb3b;  /* Yellow background for highlight */
+}
+
+.highlight-clash td {
+color: #d32f2f;  /* Red text color for both course code and course name */
+}
+
+/* Table Styling */
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.table thead {
+    background-color: #ffffff;
+    color: #495057;
+    font-weight: 600;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    padding: 12px;
+    border-bottom: 2px solid #ffffff;
+}
+
+.table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.075);
+}
+
+.table tbody td {
+    padding: 12px;
+    vertical-align: middle;
+    border-top: 1px solid #dee2e6;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table-sm td,
+.table-sm th {
+    padding: 0.5rem;
+}
+
+/* Clash Highlight */
+.highlight-clash {
+    background-color: #fff3cd !important;
+}
+
+.highlight-clash td {
+    color: #856404;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .table {
+        font-size: 0.9em;
+    }
+}
+
+.btn-primary.text-black {
+    background-color: #28a745; /* Green for Edit button */
+    color: white !important;
+    border: none;
+}
+
+.btn-primary.text-black:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+.btn-danger.text-black {
+    background-color: #dc3545; /* Red for Delete button */
+    color: white !important;
+    border: none;
+}
+
+.btn-danger.text-black:hover {
+    background-color: #bd2130; /* Darker red on hover */
+}
+
+.btn-success.btn-sm {
+    background-color: #28a745; /* Green for Add New Exam Slot */
+    border: none;
+}
+
+.btn-success.btn-sm:hover {
+    background-color: #218838; /* Darker green on hover */
+}

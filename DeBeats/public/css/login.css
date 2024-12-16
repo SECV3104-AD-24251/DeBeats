@@ -1,0 +1,135 @@
+/* General body styling for centering */
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9fafb; /* Light background */
+}
+
+/* Login container */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+/* Login box styling */
+.login-box {
+    background-color: #ffffff; /* White background */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    width: 360px; /* Fixed width */
+    text-align: center;
+}
+
+/* Login title */
+.login-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333333; /* Dark gray */
+}
+
+/* Login subtitle */
+.login-subtitle {
+    font-size: 1rem;
+    color: #666666; /* Medium gray */
+    margin-bottom: 20px;
+}
+
+/* Form groups for spacing */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Labels */
+.form-label {
+    display: block;
+    font-size: 0.9rem;
+    color: #444444; /* Medium gray */
+    margin-bottom: 5px;
+}
+
+/* Input fields */
+.form-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 0.9rem;
+    border: 1px solid #cccccc; /* Light gray border */
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+/* Focus effect for inputs */
+.form-input:focus {
+    border-color: #007bff; /* Blue border on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25); /* Blue glow */
+}
+
+/* Password wrapper for the show/hide button */
+.password-wrapper {
+    position: relative;
+}
+
+/* Show/Hide button inside password field */
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8rem;
+    color: #087bf7; /* Blue */
+    cursor: pointer;
+    user-select: none;
+    text-decoration: none; /* No underline initially */
+    transition: text-decoration 0.2s ease, color 0.2s ease; /* Smooth effect */
+
+}
+
+/* Underline appears only on hover */
+.password-toggle:hover {
+    text-decoration: underline; /* Show underline on hover */
+    color: #0056b3; /* Slightly darker blue on hover */
+}
+
+/* Error messages */
+.form-error {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.8rem;
+    color: #dc3545; /* Red */
+}
+
+/* General error box */
+.form-errors {
+    color: #dc3545; /* Red */
+    font-size: 0.9rem;
+    margin-top: 10px;
+    text-align: left;
+}
+
+/* Submit button styling */
+.form-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #ffc455; /* Blue */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Submit button hover effect */
+.form-button:hover {
+    background-color: #d39207; /* Darker blue */
+}

@@ -1,0 +1,114 @@
+.clash-details {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 10px;
+    max-height: 600px; /* Overall container height */
+    min-height: 300px;
+    width: 1000px;
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    overflow: hidden; /* Prevent scrolling on the entire container */
+}
+
+
+.clash-header {
+    display: flex;
+    justify-content: space-between;
+    background-color: #e9ecef;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #495057;
+    position: sticky; /* Make it stick to the top */
+    top: 0; /* Stick at the top of the container */
+    z-index: 1; /* Ensure it stays above scrolling content */
+}
+
+.clash-header span {
+    margin-right: 15px;
+}
+
+.course-info {
+    background-color: #ffffff;
+    border-left: 4px solid #007bff;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    color: #212529;
+}
+
+.course-info strong {
+    color: #007bff;
+    margin-right: 10px;
+}
+
+/* Fallback for no clashes */
+.clash-details p:last-child {
+    text-align: center;
+    color: #6c757d;
+    font-style: italic;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.card-body{
+padding: 30px;
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #007bff;
+    font-weight: bold;
+    color: #495057;
+    padding: 15px;
+}
+
+.form-label {
+    font-weight: 6000;
+    color: #495057;
+    margin-bottom: 8px;
+}
+
+.form-control, 
+.form-control[readonly] {
+    height: 35px; /* Fixed height for all inputs */
+    line-height: 30px; /* Vertical alignment of text */
+    width: 500px;
+    margin: 20px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.clash-details {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 10px;
+    max-height: 600px; /* Increased from 400px to 600px */
+    min-height: 300px; /* Added minimum height */
+    width: 800px;
+    overflow-y: auto;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+
+.btn-danger {
+    border-radius: 6px;
+    background-color: orange;
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.mb-3 {
+    margin-bottom: 1.5rem;
+}

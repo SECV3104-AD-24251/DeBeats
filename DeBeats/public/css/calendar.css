@@ -1,0 +1,160 @@
+.calendar-container {
+    width: 100%; /* Increased width */
+    max-width: 1000px; /* Increased max-width for a larger calendar */
+    background: #f7ffc8;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px; /* Increased padding for better proportions */
+   
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.calendar-header h1 {
+    font-size: 2rem; /* Increased header text size */
+    color: #333;
+}
+
+.calendar-header .navigation {
+    display: flex;
+    gap: 10px;
+}
+
+.calendar-header button {
+    padding: 10px 15px; /* Increased button size for better usability */
+    font-size: 1.2rem; /* Slightly larger font size */
+    border: none;
+    background-color: #f2aa3d;
+    color: #ffeec9;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.calendar-header button:hover {
+    background-color: #f9c64f;
+}
+
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px; /* Increased spacing for better layout */
+    margin-bottom: 10px;
+}
+
+.day {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2rem; /* Increased font size for day labels */
+    color: #555;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px; /* Increased spacing between date cells */
+}
+
+.date {
+    height: 100px; /* Increased size of date cells */
+    display: flex;
+    overflow-y: scroll; /* Enable vertical scrolling if content overflows */
+    scrollbar-width: none;
+    flex-direction: column; /* Align content vertically */
+    justify-content: flex-start; /* Align content at the top */
+    align-items: right;
+    padding: 5px; /* Add padding for better spacing */
+    font-size: 1.2rem; /* Made text slightly larger */
+    border-radius: 8px; /* Slightly rounder corners */
+    background-color: #ffffff;
+    color: #333;
+    cursor: pointer;
+    position: relative; /* Allows absolute positioning for schedule items */
+}
+
+.date:hover {
+    background-color: #fcffec;
+    overflow-y: auto; /* Show the scrollbar when the user hovers */
+}
+
+/* Custom scrollbar styling (for WebKit browsers like Chrome and Edge) */
+.date::-webkit-scrollbar {
+    width: 0px; /* Width of the scrollbar */
+    background-color: #f1f1f1; /* Visible scrollbar track */
+}
+
+
+.schedule {
+    margin-top: 5px; /* Add spacing between date number and schedule */
+    font-size: 0.9rem; /* Slightly smaller text for schedule items */
+    color: #666;
+    text-align: center;
+}
+
+.faded {
+    color: #bbb;
+}
+
+.today {
+    background-color: #ffffc8;
+    font-weight: bold;
+    border: 2px solid #f2aa3d;
+}
+
+/* Style the exam events */
+.exam-event {
+    font-size: 0.5rem; /* Adjust font size */
+    font-family: 'Arial', sans-serif; /* Clean and modern font family */
+    color: #fff; /* White text */
+    background-color: #3f88c5; /* Light blue background */
+    padding: 5px; /* Add padding around the text */
+    margin-top: 5px; /* Space between the date and event */
+    border-radius: 5px; /* Rounded corners */
+    text-align: center; /* Center-align the text */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Optional shadow for depth */
+    cursor: pointer; /* Make it look clickable */
+}
+
+/* Hover effect for the exam event */
+.exam-event:hover {
+    background-color: #2a6b8c; /* Darken the background on hover */
+}
+
+/* Optional: Add an icon or custom styles before the event name */
+.exam-event::before {
+    content: "📚"; /* Add an icon (optional) */
+    margin-right: 5px; /* Space between icon and text */
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.popup-content {
+    max-width: 400px;
+}
+
+.popup .close-popup {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.popup .close-popup:hover {
+    background-color: #0056b3;
+}

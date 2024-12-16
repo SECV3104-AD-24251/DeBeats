@@ -1,0 +1,55 @@
+/* Compact form styling */
+.card {
+    padding: 30px; /* Reduced padding */
+    font-size: 1rem; /* Slightly smaller font */
+}
+
+.card-header {
+    font-size: 1.5rem;
+    margin-bottom: 20px; /* Reduced margin */
+}
+
+.form-group {
+    margin-bottom: 15px; /* Tighter spacing between form groups */
+}
+
+.form-control {
+    font-size: 1rem; /* Smaller font size */
+    padding: 10px; /* Reduced padding */
+    margin-bottom: 10px; /* Tighter spacing */
+    height: 40px; /* Consistent height for all inputs */
+    width: 100%; /* Ensure full width */
+}
+
+/* Ensure all input fields are the same length and aligned */
+.form-row .form-control {
+    width: 100%; /* Full width within rows */
+}
+
+/* Slightly smaller button */
+.btn-primary {
+    font-size: 1rem;
+    padding: 10px 20px;
+    height: 45px; /* Consistent height */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .card {
+        padding: 20px;
+    }
+}
+
+.btn{
+    background-color: orange;
+}
+
+/* Button hover effect */
+.btn-primary:hover {
+    background-color: #e78f00; /* Darker blue on hover */
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+}
