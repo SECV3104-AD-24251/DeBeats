@@ -1,6 +1,6 @@
 @extends ('layoutStaff')
 
-@section('title', 'Exam List')
+@section('title', 'Test Venues List')
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/venueInfo.css') }}">
