@@ -1,6 +1,6 @@
 @extends('layoutStudent') <!-- Extends the layout -->
 
-@section('title', 'Student Test List') <!-- Matches @yield('title') in the layout -->
+@section('title', 'Test List') <!-- Matches @yield('title') in the layout -->
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/student-exam-list.css') }}">
