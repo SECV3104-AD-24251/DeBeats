@@ -8,6 +8,7 @@ use App\Models\StudentRegistration;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Course;
 use App\Models\ClashReport;
+use App\Models\TestSlot;
 
 class StudExamListController extends Controller
 {
@@ -47,6 +48,21 @@ class StudExamListController extends Controller
         }
 
         return view('student-exam-list', compact('examSlots', 'clashNotifications'));
+    }
+
+    public function getStudentTestList()
+    { 
+        // Get the currently authenticated student
+        $student = Auth::user();
+
+        // Get the courses the student is registered for
+        $registeredCourses = StudentRegistration::where('UTMID', $student->UTMID)
+                                                ->pluck('course_code'); // Get all course_codes for the logged-in student
+
+        // Fetch the exam slots that match the registered courses
+        $testSlots = TestSlot::whereIn('course_code', $registeredCourses)->get();
+
+        return view('student-test-list', compact('testSlots'));
     }
 
     public function getClashReport()

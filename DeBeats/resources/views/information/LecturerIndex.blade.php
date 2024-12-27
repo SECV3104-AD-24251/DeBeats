@@ -40,19 +40,10 @@
 <body>
     <div class="container">
         <div class="card">
-            <a href="{{ route('dashboard.staff.venues') }}">Venue Details</a>
+            <a href="{{ route('dashboard.lecturer.venues') }}">Venue Details</a>
         </div>
         <div class="card">
-            <a href="{{ route('dashboard.staff.courses') }}">Course Details</a>
-        </div>
-        <div class="card">
-            <a href="{{ route('dashboard.staff.student-registrations') }}">Student Registrations</a>
-        </div>
-        <div class="card">
-            <a href="{{ route('dashboard.staff.lecturer') }}">Lecturers</a>
-        </div>
-        <div class="card">
-            <a href="{{ route('dashboard.staff.test_venues') }}">Test Venues Details</a>
+            <a href="{{ route('dashboard.lecturer.test_venues') }}">Test Venue Details</a>
         </div>
     </div>
 @endsection

@@ -25,6 +25,12 @@ public function clashReports()
     return $this->hasMany(ClashReport::class, 'course_code', 'course_code');
 }
 
+// In Course.php model
+public function lecturer()
+{
+    return $this->hasOne(Lecturer::class);
+}
+
 
 
 

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Venue; 
+use App\Models\TestVenues; 
 use App\Models\Course;
+use App\Models\Lecturer;
 use App\Models\StudentRegistration; 
 
 
@@ -31,6 +33,17 @@ public function showVenues()
 {
     $venues = Venue::all(); // Ensure you have a Venue model and data in your database.
     return view('venues.index', ['venues' => $venues]);
+}
+public function showTestVenues()
+{
+    $test_venues = TestVenues::all(); // Ensure you have a Venue model and data in your database.
+    return view('TestVenues.index', ['test_venues' => $test_venues]);
+}
+
+public function showLecturer()
+{
+    $lecturer = Lecturer::all(); // Ensure you have a Venue model and data in your database.
+    return view('lecturer.index', ['lecturer' => $lecturer]);
 }
 
 public function searchStudentRegistrations(Request $request)

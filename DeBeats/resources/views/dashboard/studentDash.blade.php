@@ -45,6 +45,12 @@
                             </a>
                         </li>
                         <li>
+                        <a href="{{ route('getStudentTestList') }}">
+                                <i class="icon-test-slot"></i>
+                                <span>Test List</span>
+                            </a>
+                        </li>
+                        <li>
                         <a href="{{ route('getClashReport') }}">
                                 <i class="icon-exam-list"></i>
                                 <span>Clash Report</span>
@@ -73,7 +79,7 @@
                 </section>
 
                 <section class="calendar-section">
-                    @include('calendar')
+                    @include('calendarStud')
                 </section>
 
                 <!-- Optional: Quick Action Buttons -->

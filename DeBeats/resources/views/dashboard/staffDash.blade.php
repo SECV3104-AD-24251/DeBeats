@@ -66,7 +66,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="{{ url('/test_list') }}">
                                 <i class="icon-test-list"></i>
                                 <span>Test List</span>
                             </a>

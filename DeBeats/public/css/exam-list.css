@@ -71,6 +71,13 @@
     font-style: italic;
 }
 
+/* resources/css/exam-list.css */
+.table-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+
 /* Action Buttons */
 .btn-action {
     margin: 0 5px;

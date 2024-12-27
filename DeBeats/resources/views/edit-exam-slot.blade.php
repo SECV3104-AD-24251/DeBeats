@@ -40,11 +40,11 @@
                     </div>
                     <div class="mb-3">
                         <label for="start_time" class="form-label">Start Time</label>
-                        <input type="time" name="start_time" class="form-control" value="{{ $exam_slot->start_time }}" id="start_time" required>
+                        <input type="time" name="start_time" class="form-control" value="{{ old('start_time', $exam_slot->start_time ?? '') }}" id="start_time" required>
                     </div>
                     <div class="mb-3">
                         <label for="end_time" class="form-label">End Time</label>
-                        <input type="time" name="end_time" class="form-control" value="{{ $exam_slot->end_time }}" id="end_time" required>
+                        <input type="time" name="end_time" class="form-control" value="{{ old('end_time', $exam_slot->end_time ?? '') }}" id="end_time" required>
                         <p id="time_error" style="color: red; display: none;"></p>
                     </div>
                     

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeBeats - Staff Dashboard</title>
+    <title>DeBeats - Lecturer Dashboard</title>
 
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('path/to/your/favicon.ico') }}" type="image/x-icon">
@@ -19,6 +19,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @vite('resources/js/app.js') 
+    
 </head>
 <body>
     <div class="dashboard-wrapper">
@@ -38,9 +39,8 @@
         <!-- Main Content Section -->
         <div class="dashboard-container">
             <!-- Sidebar Menu -->
-           <!-- Sidebar Menu -->
-<aside class="dashboard-sidebar">
-    <nav>
+            <aside class="dashboard-sidebar">
+            <nav>
         <ul>
             <li>
                 <a href="{{ route('add.test.slot') }}">
@@ -55,7 +55,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('dashboard.lecturer.information') }}">
+                <a href="{{ route('dashboard.staff.information') }}">
                     <i class="icon-info"></i>
                     <span>Information Details</span>
                 </a>
@@ -68,8 +68,7 @@
             </li>
         </ul>
     </nav>
-</aside>
-
+            </aside>
 
             <!-- Main Content Area -->
             <main class="dashboard-content">
@@ -79,10 +78,6 @@
                     <p>Manage exams, courses, and track your academic activities efficiently.</p>
                 </section>
                 @yield('content')
-
-                <section class ="calendar-section">
-                    @include ('calendar')
-                </section>
             </main>
         </div>
 

@@ -1,4 +1,4 @@
-@extends('layoutStaff') <!-- Extends the layout -->
+@extends('layoutLecturer') <!-- Extends the layout -->
 
 @section('title', 'Add Exam Slot') <!-- Matches @yield('title') in the layout -->
 
@@ -100,7 +100,7 @@
                             $('#venue_short').append('<option value="' + venue.venue_short + '">' + venue.venue_name + ' (Capacity: ' + venue.capacity + ')</option>');
                         });
                     } else {
-                        $('#course_name_error').text('');
+                        $('#course_name_error').text(''); 
                         $('#venue_short').append('<option>No venue available</option>');
                         
                     }

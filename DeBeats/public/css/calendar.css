@@ -1,11 +1,9 @@
 .calendar-container {
-    width: 100%; /* Increased width */
-    max-width: 1000px; /* Increased max-width for a larger calendar */
-    background: #f7ffc8;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 30px; /* Increased padding for better proportions */
-   
+    background-color: #f7ffc8; /* Yellow background for the calendar */
+    color: #333; /* Ensure text is readable on yellow */
+    padding: 30px; /* Maintain padding */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3); /* Add shadow for better visibility */
 }
 
 .calendar-header {
@@ -77,14 +75,14 @@
 }
 
 .date:hover {
-    background-color: #fcffec;
+    background-color: #f8f366;
     overflow-y: auto; /* Show the scrollbar when the user hovers */
 }
 
 /* Custom scrollbar styling (for WebKit browsers like Chrome and Edge) */
 .date::-webkit-scrollbar {
     width: 0px; /* Width of the scrollbar */
-    background-color: #f1f1f1; /* Visible scrollbar track */
+    background-color: #080808; /* Visible scrollbar track */
 }
 
 
@@ -109,7 +107,7 @@
 .exam-event {
     font-size: 0.5rem; /* Adjust font size */
     font-family: 'Arial', sans-serif; /* Clean and modern font family */
-    color: #fff; /* White text */
+    color: #000000; /* White text */
     background-color: #3f88c5; /* Light blue background */
     padding: 5px; /* Add padding around the text */
     margin-top: 5px; /* Space between the date and event */
