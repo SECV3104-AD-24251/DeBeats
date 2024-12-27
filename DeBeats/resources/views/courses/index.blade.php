@@ -26,7 +26,7 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Course Name</th>
+                <th>Course g Name</th>
                 <th>Course Code</th>
                 <th>Capacity</th>
             </tr>
