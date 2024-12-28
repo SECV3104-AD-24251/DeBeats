@@ -14,11 +14,10 @@ class TestSlotController extends Controller
 {
     public function loadAllTestSlots()
     {
-        $testSlots = TestSlot::all();      
-        {
+        $testSlots = TestSlot::where('UTMID', Auth::id())->get(); // Filter by the authenticated user
     
         return view('test_list', compact('testSlots'));
-    }
+    
 }
 
 
@@ -28,6 +27,13 @@ public function loadAddTestSlotForm()
 
     // Pass the course code to the view
     return view('add-test-slot');
+}
+
+public function getStaffTestList()
+{ 
+    $testSlots = TestSlot::all();  
+
+    return view('staff-test-list', compact('testSlots'));
 }
 
 
@@ -72,6 +78,7 @@ public function AddTestSlot(Request $request)
         $testSlot->type = $request->type;
         $testSlot->venue_short = implode(',', $request->venues);
         $testSlot->file_path = $filePath;  // Save the file path in the database
+        $testSlot->UTMID = Auth::id(); // Store the user's ID
         $testSlot->save();
 
         return redirect('/test_list')->with('success', 'Test Slot Added Successfully');

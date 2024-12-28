@@ -19,7 +19,7 @@
             background-color: #f4f4f4;
         }
     </style>
-</head>
+</head> 
 <body>
     <h1>Course Information</h1>
     <table>

@@ -80,6 +80,7 @@ Route::post('/get-course-name', [ExamSlotController::class, 'getCourseName']);
 // Student Exam Listroute
 Route::get('/student-exam-list', [StudExamListController::class, 'getStudentExamList'])->name('getStudentExamList');
 Route::get('/student-test-list', [StudExamListController::class, 'getStudentTestList'])->name('getStudentTestList');
+Route::get('/staff-test-list', [TestSlotController::class, 'getStaffTestList'])->name('getStaffTestList');
 // Student clash report
 Route::get('/clash-report', [StudExamListController::class, 'getClashReport'])->name('getClashReport'); 
 Route::post('/clash-report', [StudExamListController::class, 'store'])->name('status.clash.report');

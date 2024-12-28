@@ -66,7 +66,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url('/test_list') }}">
+                            <a href="{{ route('getStaffTestList') }}">
                                 <i class="icon-test-list"></i>
                                 <span>Test List</span>
                             </a>

@@ -17,6 +17,7 @@ class CreateTestListTable extends Migration
             $table->string('type');
             $table->string('venue_short');
             $table->string('file_path')->nullable(); // Store file path
+            $table->foreignId('UTMID')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
