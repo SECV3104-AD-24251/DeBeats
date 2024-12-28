@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('lecturer', function (Blueprint $table) {
             $table->id(); // Primary key
             $table->string('UTMID');
+            $table->string('image_path')->nullable(); // Column for image path
             $table->string('name'); // Column for lecturer name
             $table->string('course_code');  // Column for course code
             $table->timestamps(); // Created at and Updated at columns
