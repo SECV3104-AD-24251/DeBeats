@@ -43,7 +43,12 @@
                                 <td>{{ $item->duration }}</td>
                                 <td>{{ $item->type }}</td>
                                 <td>{{ $item->venue_short }}</td>
-                                <td>{{ $item->file }}</td>
+                                <td> @if ($item->file_path)
+                                        <a href="{{ asset('storage/' . $item->file_path) }}" target="_blank">View File</a>
+                                    @else
+                                        No File Uploaded
+                                    @endif
+                                </td>
                                 
 
 

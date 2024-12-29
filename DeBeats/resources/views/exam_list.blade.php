@@ -20,7 +20,7 @@
         <div class="card-body">
             <table class="table table-sm table-striped table-bordered">
                 <thead>
-                    <th>No.</th>
+                    <th>No</th>
                     <th>Course Code</th>
                     <th>Course Name</th>
                     <th>Exam Date</th>
