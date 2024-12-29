@@ -1,13 +1,14 @@
-@extends('layoutStudent') <!-- Extends the layout -->
+@extends('layoutStaff') <!-- Extends the layout -->
 
-@section('title', 'Student Test List') <!-- Matches @yield('title') in the layout -->
+@section('title', 'Staff Test List') <!-- Matches @yield('title') in the layout -->
 
 @section('content')
-<link rel="stylesheet" href="{{ asset('css/staff-exam-list.css') }}">
+<link rel="stylesheet" href="{{ asset('css/exam-list.css') }}">
+
 <div class="container">
     <div class="card">
         <div class="card-header">
-        Test Slots
+            Test Slots
         </div>
         @if (Session::has('success'))
             <span class="alert alert-success p-2">{{ Session::get('success') }}</span>
@@ -18,15 +19,16 @@
         <div class="card-body">
             <table class="table table-sm table-striped table-bordered">
                 <thead>
-                    <th>No</th>
+                    <th>No.</th>
                     <th>Course Code</th>
                     <th>Course Name</th>
                     <th>Capacity</th>
-                    <th>Exam Date</th>
+                    <th>Test Date</th>
                     <th>Duration</th>
                     <th>Test Type</th>
-                    <th>Type</th> 
+                    <th>Venue Type</th> 
                     <th>Venue</th>
+                    <th>Test Paper</th>
                 </thead>
                 <tbody>
                     @if (count($testSlots) > 0)
@@ -35,17 +37,24 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->course_code }}</td>
                                 <td>{{ $item->course_name }}</td>
-                                 <td>{{ $item->capacity }}</td> 
+                                <td>{{ $item->capacity }}</td>
                                 <td>{{ $item->exam_date }}</td>
                                 <td>{{ $item->duration }}</td>
                                 <td>{{ $item->exam_type }}</td>
-                                 <td>{{ $item->type }}</td> 
+                                <td>{{ $item->type }}</td>
                                 <td>{{ $item->venue_short }}</td>
+                                <td>
+                                    @if ($item->file_path)
+                                        <a href="{{ asset('storage/' . $item->file_path) }}" target="_blank">View File</a>
+                                    @else
+                                        No File Uploaded
+                                    @endif
+                                </td>
                             </tr>    
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="9">No Test Slots Found!</td>
+                            <td colspan="10">No Test Slots Found!</td>
                         </tr>
                     @endif
                 </tbody>
@@ -53,9 +62,4 @@
         </div>
     </div>
 </div>
-
-    @endsection
-   
-
-
-
+@endsection
