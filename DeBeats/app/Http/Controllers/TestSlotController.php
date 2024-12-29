@@ -90,6 +90,7 @@ public function AddTestSlot(Request $request)
    
 public function uploadFile(Request $request, $id)
 {
+    //max size  upload 10240
     // Validate the file upload
     $request->validate([
         'file' => 'required|file|mimes:pdf,jpg,jpeg,png,docx|max:10240',
