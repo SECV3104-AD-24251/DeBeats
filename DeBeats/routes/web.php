@@ -64,11 +64,18 @@ Route::get('/calendar', function(){
     return view('calendar');
 });
 
+
+
 //Route to redirect to exam slot form by clicking on calendar date block
 Route::get('/add-exam-slot/{date}', [ExamSlotController::class, 'loadAddExamSlotFormWithDate'])->name('add.exam.slot.date');
 
 // Route to fetch exam slots for a specific month
 Route::get('/exam-slots/{month}/{year}', [ExamSlotController::class, 'getExamSlotsForDate']);
+
+Route::get('/fetch-tests', [TestSlotController::class, 'fetchTests']);
+Route::get('/add/test', [TestSlotController::class, 'loadAddTestSlotForm']);
+Route::post('/add/test', [TestSlotController::class, 'AddTestSlot'])->name('AddTestSlot');
+
 
 Route::get('/validate-course-code', [ExamSlotController::class, 'validateCourseCode']);
 

@@ -81,7 +81,7 @@
                 @yield('content')
 
                 <section class ="calendar-section">
-                    @include ('calendar')
+                    @include ('calendarLect')
                 </section>
             </main>
         </div>

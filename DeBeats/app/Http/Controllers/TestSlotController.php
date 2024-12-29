@@ -23,12 +23,10 @@ class TestSlotController extends Controller
 
 public function loadAddTestSlotForm()
 {
-    
-
+    $date = $request->query('date', null); // Retrieve selected date from query string
     // Pass the course code to the view
-    return view('add-test-slot');
+    return view('add-test-slot', compact('date'));
 }
-
 public function getStaffTestList()
 { 
     $testSlots = TestSlot::all();  
@@ -156,7 +154,19 @@ public function getBookedDates()
     return response()->json($bookedDates);
 }
 
-
-
+//calendar test slot
+public function fetchTests(Request $request)
+{
+    $month = $request->input('month');  // Month as 1-based index
+    $year = $request->input('year');
+    
+    // Fetch the test slots for the given month and year
+    $tests = TestSlot::whereYear('exam_date', $year)
+                     ->whereMonth('exam_date', $month)
+                     ->get();
+    
+    // Return the test slots as JSON response
+    return response()->json($tests);
+}
 
 }

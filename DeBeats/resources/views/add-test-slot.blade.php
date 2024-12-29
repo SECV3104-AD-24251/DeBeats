@@ -29,8 +29,9 @@
                     <input type="text" name="capacity" class="form-control" id="capacity" placeholder="Enter Course Capacity" required readonly>
                 </div>
                 <div class="mb-3">
-                    <label for="exam_date" class="form-label">Exam Date</label>
-                    <input type="date" name="exam_date" class="form-control" id="exam_date" required>
+                    <label for="exam_date" class="form-label">Test Date</label>
+                    <input type="date" name="exam_date" class="form-control" id="exam_date" 
+                    value="{{ request()->query('date') ? request()->query('date') : '' }}" required>
                 </div>
                 <div class="mb-3">
                     <label for="duration" class="form-label">Duration</label>
@@ -49,8 +50,9 @@
         <option value="Lab Test">Lab Test</option>
     </select>
 </div>
+
                 <div class="mb-3">
-                    <label for="type" class="form-label">Type</label>
+                    <label for="type" class="form-label">Venue Type</label>
                     <select name="type" class="form-control" id="type" required>
                         <option value="">Select Type</option>
                         <option value="bilik kuliah">Bilik Kuliah</option>
@@ -74,6 +76,7 @@
         <span class="text-danger">{{ $errors->first('file') }}</span>
     @endif
 </div>
+
                 <button type="submit" id="submit_button" class="btn btn-primary">Save</button>
 
                 @if ($errors->any())
@@ -258,6 +261,8 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
         filePreview.innerHTML = 'No file selected.';
     }
 });
+
+
 
 </script>
 @endsection
