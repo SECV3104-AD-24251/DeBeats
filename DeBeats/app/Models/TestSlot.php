@@ -14,7 +14,7 @@ class TestSlot extends Model
     protected $table = 'test_list';
 
     // Define the fillable attributes (to prevent mass-assignment exceptions)
-    protected $fillable = ['course_code, course_name', 'capacity', 'exam_date', 'duration', 'type', 'venue_short'];
+    protected $fillable = ['course_code, course_name', 'capacity', 'exam_date', 'duration','exam_type', 'type', 'venue_short'];
 
     
 }

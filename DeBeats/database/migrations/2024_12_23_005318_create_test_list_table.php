@@ -14,6 +14,7 @@ class CreateTestListTable extends Migration
             $table->integer('capacity');
             $table->date('exam_date');
             $table->string('duration');
+            $table->string('exam_type');
             $table->string('type');
             $table->string('venue_short');
             $table->string('file_path')->nullable(); // Store file path

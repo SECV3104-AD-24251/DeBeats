@@ -45,6 +45,7 @@ public function AddTestSlot(Request $request)
         'capacity' => 'required|integer',
         'exam_date' => 'required|date',
         'duration' => 'required|in:20:00-22:00,20:00-22:30,20:00-23:00',
+        'exam_type' => 'required|string|in:Test 1,Test 2,Lab Test', 
         'type' => 'required|in:bilik kuliah,makmal',
         'venues' => 'required|array',
         'venues.*' => 'string',
@@ -75,6 +76,7 @@ public function AddTestSlot(Request $request)
         $testSlot->capacity = $request->capacity;
         $testSlot->exam_date = $request->exam_date;
         $testSlot->duration = $request->duration;
+        $testSlot->exam_type = $request->exam_type;
         $testSlot->type = $request->type;
         $testSlot->venue_short = implode(',', $request->venues);
         $testSlot->file_path = $filePath;  // Save the file path in the database

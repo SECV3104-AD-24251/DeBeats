@@ -41,6 +41,15 @@
                     </select>
                 </div>
                 <div class="mb-3">
+    <label for="exam_type" class="form-label">Test Type</label>
+    <select name="exam_type" class="form-control" id="exam_type" required>
+        <option value="">Select Test Type</option>
+        <option value="Test 1">Test 1</option>
+        <option value="Test 2">Test 2</option>
+        <option value="Lab Test">Lab Test</option>
+    </select>
+</div>
+                <div class="mb-3">
                     <label for="type" class="form-label">Type</label>
                     <select name="type" class="form-control" id="type" required>
                         <option value="">Select Type</option>

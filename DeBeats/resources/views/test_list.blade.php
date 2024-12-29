@@ -26,6 +26,7 @@
                     <th>Capacity</th>
                     <th>Exam Date</th>
                     <th>Duration</th>
+                    <th>Test Type</th>
                     <th>Type</th>
                     <th>Venue</th>
                     <th>Test Paper</th>
@@ -41,6 +42,7 @@
                                 <td>{{ $item->capacity }}</td>
                                 <td>{{ $item->exam_date }}</td>
                                 <td>{{ $item->duration }}</td>
+                                <td>{{ $item->exam_type }}</td>
                                 <td>{{ $item->type }}</td>
                                 <td>{{ $item->venue_short }}</td>
                                 <td> @if ($item->file_path)
