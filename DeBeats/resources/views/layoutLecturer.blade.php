@@ -55,7 +55,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('dashboard.staff.information') }}">
+                <a href="{{ route('dashboard.lecturer.information') }}">
                     <i class="icon-info"></i>
                     <span>Information Details</span>
                 </a>
