@@ -101,7 +101,10 @@ public function uploadFile(Request $request, $id)
         $file = $request->file('file');
         $filePath = $file->store('test_slots', 'public'); // Saves the file in storage/app/public/test_slots
 
-        
+        // Update the file path in the database
+        $testSlot = TestSlot::findOrFail($id);
+        $testSlot->file_path = $filePath; // Store only the relative path
+        $testSlot->save();
 
         return redirect()->back()->with('success', 'File uploaded successfully!');
     } catch (\Exception $e) {
