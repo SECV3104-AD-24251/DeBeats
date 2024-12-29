@@ -13,7 +13,7 @@
         .card {
             width: 200px;
             height: 200px;
-            background-color: red;
+            background-color: rgb(231, 131, 23);
             color: white;
             display: flex;
             justify-content: center;
