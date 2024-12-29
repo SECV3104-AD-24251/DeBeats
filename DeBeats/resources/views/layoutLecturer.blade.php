@@ -27,7 +27,7 @@
         <header class="dashboard-header">
             <div class="header-content">
                 <div class="logo">
-                <a href="{{ route('dashboard.lecturer') }}" class="btn btn-secondary">DeBeats</a>
+                <a href="{{ route('dashboard.lecturer') }}">DeBeats</a>
                 </div>
                 <div class="user-info">
                     <span>Welcome, {{ Auth::user()->name }}!</span>
