@@ -58,12 +58,13 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="file" class="form-label">Test Paper</label>
-                    <input type="file" name="file" class="form-control" />
-                    @if ($errors->has('file'))
-                        <span class="text-danger">{{ $errors->first('file') }}</span>
-                    @endif
-                </div>
+    <label for="file" class="form-label">Test Paper</label>
+    <input type="file" name="file" class="form-control" id="fileInput" />
+    <span id="filePreview"></span>
+    @if ($errors->has('file'))
+        <span class="text-danger">{{ $errors->first('file') }}</span>
+    @endif
+</div>
                 <button type="submit" id="submit_button" class="btn btn-primary">Save</button>
 
                 @if ($errors->any())
@@ -224,6 +225,29 @@ $('#submit_button').on('click', function(e) {
             alert('Failed to fetch booked dates.');
         }
     });
+});
+
+document.getElementById('fileInput').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    const filePreview = document.getElementById('filePreview');
+
+    if (file) {
+        // Clear any previous preview
+        filePreview.innerHTML = '';
+
+        // Create a link to preview the file
+        const fileLink = document.createElement('a');
+        fileLink.href = URL.createObjectURL(file);
+        fileLink.target = '_blank';
+        fileLink.textContent = 'View Selected File';
+        fileLink.classList.add('btn', 'btn-link');
+
+        // Append the link to the preview section
+        filePreview.appendChild(fileLink);
+    } else {
+        // Clear preview if no file is selected
+        filePreview.innerHTML = 'No file selected.';
+    }
 });
 
 </script>
