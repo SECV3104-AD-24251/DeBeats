@@ -1,4 +1,4 @@
-@extends ('layoutStaff')
+@extends ('layoutLecturer')
 
 @section('title', 'information')
 
