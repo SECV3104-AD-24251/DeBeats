@@ -1,4 +1,4 @@
-@extends('layoutLecturer') <!-- Extends the layout -->
+@extends('layoutStaff') <!-- Extends the layout -->
 
 @section('title', 'Add Exam Slot') <!-- Matches @yield('title') in the layout -->
 

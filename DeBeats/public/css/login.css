@@ -6,7 +6,7 @@ body {
     min-height: 100vh;
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f9fafb; /* Light background */
+    background-color: #1C335F; /* Light background */
 }
 
 /* Login container */
@@ -121,7 +121,7 @@ body {
     padding: 12px;
     font-size: 1rem;
     font-weight: bold;
-    background-color: #ffc455; /* Blue */
+    background-color: #F0C479; /* Blue */
     color: white;
     border: none;
     border-radius: 5px;
@@ -131,5 +131,5 @@ body {
 
 /* Submit button hover effect */
 .form-button:hover {
-    background-color: #d39207; /* Darker blue */
+    background-color: #d3aa63; /* Darker blue */
 }
