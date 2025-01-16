@@ -3,8 +3,9 @@
 @section('title', 'Add Test Slot')
 
 @section('content')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" href="{{ asset('css/add-exam-slot.css') }}">
+<link rel="stylesheet" href="{{ asset('css/add-test-slot.css') }}">
 
 <div class="container">
     <div class="card">
@@ -13,34 +14,49 @@
             <span class="alert alert-danger p-2">{{ Session::get('fail') }}</span>
         @endif
         <div class="card-body">
-            <form action="{{ route('AddTestSlot') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('AddTestSlot') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                <!-- Course Code (Auto-filled) -->
                 <div class="mb-3">
                     <label for="course_code" class="form-label">Course Code</label>
-                    <input type="text" name="course_code" class="form-control" id="course_code" placeholder="Enter Course Code" required>
+                    <input type="text" id="course_code" name="course_code" class="form-control" value="{{ $course_code }}" readonly>
                 </div>
+
+                <!-- Course Name (Auto-filled) -->
                 <div class="mb-3">
                     <label for="course_name" class="form-label">Course Name</label>
-                    <input type="text" name="course_name" class="form-control" id="course_name" placeholder="Enter Course Name" required readonly>
-                    <span id="course_name_error" class="text-danger"></span>
+                    <input type="text" id="course_name" name="course_name" class="form-control" value="{{ $course_name }}" readonly>
+                </div>
+
+                <!-- Capacity (Auto-filled) -->
+                <div class="mb-3">
+                    <label for="capacity" class="form-label">Capacity</label>
+                    <input type="text" id="capacity" name="capacity" class="form-control" value="{{ $capacity }}" readonly>
                 </div>
                 <div class="mb-3">
-                    <label for="capacity" class="form-label">Course Capacity</label>
-                    <input type="text" name="capacity" class="form-control" id="capacity" placeholder="Enter Course Capacity" required readonly>
-                </div>
-                <div class="mb-3">
-                    <label for="exam_date" class="form-label">Test Date</label>
-                    <input type="date" name="exam_date" class="form-control" id="exam_date" 
-                    value="{{ request()->query('date') ? request()->query('date') : '' }}" required>
+                <input type="date" name="exam_date" class="form-control" id="exam_date" 
+                value="{{ request()->query('date') ? request()->query('date') : '' }}" 
+                min="{{ \Carbon\Carbon::today()->toDateString() }}" required>
                 </div>
                 <div class="mb-3">
                     <label for="duration" class="form-label">Duration</label>
                     <select name="duration" class="form-control" id="duration" required>
-                        <option value="20:00-22:00">8:00 PM - 10:00 PM</option>
-                        <option value="20:00-22:30">8:00 PM - 10:30 PM</option>
-                        <option value="20:00-23:00">8:00 PM - 11:00 PM</option>
+                    <option value="">Select Duration</option>
+                        <option value="1:00">1 Hour</option>
+                        <option value="1:30">1 Hour 30 Minutes</option>
+                        <option value="2:00">2 Hours</option>
+                        <option value="2:30">2 Hours 30 Minutes</option>
+                        <option value="3:00">3 Hours</option>
                     </select>
                 </div>
+                <div class="mb-3">
+    <label for="suggested_times" class="form-label">Suggested Time Slots</label>
+    <div id="suggested-times">
+        <!-- Suggested time slots will be dynamically inserted here -->
+    </div>
+</div>
+
+
                 <div class="mb-3">
     <label for="exam_type" class="form-label">Test Type</label>
     <select name="exam_type" class="form-control" id="exam_type" required>
@@ -60,14 +76,9 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="venues" class="form-label">Select Venues</label>
-                    <div id="venue-checkbox-list">
-                        <!-- Venue checkboxes will be dynamically inserted here -->
+                    <label for="venues" class="form-label">Venue Suggested</label>
+                    <div id="venue-list">
                     </div>
-                    <div> Total Venue Capacity Selected: 
-                        <span id="total-venue-capacity">0</span>
-                    </div>
-                </div>
                 <div class="mb-3">
     <label for="file" class="form-label">Test Paper</label>
     <input type="file" name="file" class="form-control" id="fileInput" />
@@ -100,49 +111,51 @@
 @section('scripts')
 <script>
     // Update Venue Checkbox Rendering
-$('#type').on('change', function() {
+    $('#type').on('change', function () {
     var selectedType = $(this).val();
+    var requiredCapacity = $('#capacity').val();
+
+
+
+
     if (selectedType) {
         $.ajax({
-            url: '/venues/' + selectedType,
+            url: '/suggest-venues',
             method: 'GET',
-            success: function(response) {
-                var venueList = $('#venue-checkbox-list');
-                venueList.empty();
-                response.forEach(function(venue) {
-                    venueList.append(
-                        '<div class="form-check">' +
-                            '<input class="form-check-input venue-checkbox" type="checkbox" name="venues[]" value="' + venue.venue_short + '" id="venue_' + venue.venue_short + '" data-capacity="' + venue.capacity + '">' +
-                            '<label class="form-check-label" for="venue_' + venue.venue_short + '">' +
-                                venue.venue_name + ' (Capacity: ' + venue.capacity + ')' +
-                            '</label>' +
-                        '</div>'
-                    );
-                });
-                updateVenueCapacity(); // Initialize total capacity
+            data: {
+                type: selectedType,
+                capacity: requiredCapacity,
             },
-            error: function() {
-                alert('Failed to fetch venues.');
+            success: function (response) {
+                var venueList = $('#venue-list');
+                venueList.empty();
+
+
+
+
+                if (response.venues.length > 0) {
+                    response.venues.forEach(function (venue) {
+                        venueList.append(
+                            '<div>' +
+                                '<input type="hidden" name="venues[]" value="' + venue.venue_short + '">' +
+                                '<span>' + venue.venue_name + ' (Capacity: ' + venue.capacity + ')</span>' +
+                            '</div>'
+                        );
+                    });
+                } else {
+                    venueList.append('<p>No suitable venue found.</p>');
+                }
+            },
+            error: function () {
+                alert('Failed to fetch venue suggestions.');
             }
         });
     } else {
-        $('#venue-checkbox-list').empty();
-        updateVenueCapacity(); // Reset total capacity
+        $('#venue-list').empty();
     }
 });
 
-// Calculate and Display Total Venue Capacity
-function updateVenueCapacity() {
-    var totalVenueCapacity = 0;
 
-    // Sum up the capacities of checked venues
-    $('input[name="venues[]"]:checked').each(function() {
-        totalVenueCapacity += parseInt($(this).data('capacity'));
-    });
-
-    // Update the displayed total capacity
-    $('#total-venue-capacity').text(totalVenueCapacity);
-}
 
 // Listen for Checkbox Changes
 $(document).on('change', '.venue-checkbox', function() {
@@ -161,83 +174,19 @@ $('#submit_button').on('click', function(e) {
         totalVenueCapacity += parseInt($(this).data('capacity'));
     });
 
-    if (totalVenueCapacity < courseCapacity) {
-        alert('The total capacity of selected venues is less than the course capacity.');
-        return false; // Prevent form submission
-    }
-
     // Submit the form if validation passes
     $('form').submit();
 });
 
 
-    $('#course_code').on('input', function() {
-        var courseCode = $(this).val();
-        if (courseCode.length > 0) {
-            $.ajax({
-                url: '/course/details/' + courseCode,
-                method: 'GET',
-                success: function(response) {
-                    if (response.course_name && response.capacity) {
-                        $('#course_name').val(response.course_name);
-                        $('#capacity').val(response.capacity);
-                    } else {
-                        $('#course_name').val('');
-                        $('#capacity').val('');
-                        $('#course_name_error').text('No course found with this code');
-                    }
-                },
-                error: function() {
-                    $('#course_name').val('');
-                    $('#capacity').val('');
-                    $('#course_name_error').text('Failed to fetch course details');
-                }
-            });
-        } else {
-            $('#course_name').val('');
-            $('#capacity').val('');
-            $('#course_name_error').text('');
-        }
-    });
-
-    $('#exam_date').on('change', function() {
-        var selectedDate = new Date($(this).val());
-        var dayOfWeek = selectedDate.getDay();
-        if (dayOfWeek == 5 || dayOfWeek == 6) {
-            alert("You cannot select a Friday or Saturday as the exam date.");
-            $(this).val('');
-        }
-    });
-
-    $(document).ready(function() {
-    // Fetch booked dates
-    $.ajax({
-        url: '/booked-dates',
-        method: 'GET',
-        success: function(bookedDates) {
-            // Disable booked dates
-            $('#exam_date').attr('min', '{{ date('Y-m-d') }}'); // Ensure the min date is today
-            $('#exam_date').on('focus', function() {
-                $(this).attr('min', '{{ date('Y-m-d') }}');
-            });
-
-            $('#exam_date').on('input', function() {
-                var selectedDate = new Date($(this).val());
-                var dayOfWeek = selectedDate.getDay();
-                if (dayOfWeek == 5 || dayOfWeek == 6) {
-                    alert("You cannot select a Friday or Saturday as the exam date.");
-                    $(this).val('');
-                } else if (bookedDates.includes($(this).val())) {
-                    alert("This date is already booked for another exam. Please choose a different date.");
-                    $(this).val('');
-                }
-            });
-        },
-        error: function() {
-            alert('Failed to fetch booked dates.');
-        }
-    });
+$('#course_code').on('change', function () {
+    var selectedOption = $(this).find(':selected');
+    $('#course_name').val(selectedOption.data('name'));
+    $('#capacity').val(selectedOption.data('capacity'));
 });
+
+
+ 
 
 document.getElementById('fileInput').addEventListener('change', function(event) {
     const file = event.target.files[0];
@@ -263,6 +212,228 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
 });
 
 
+// Global variable to track current request
+let currentRequest = null;
+
+// Function to fetch and display available time slots
+function fetchAndDisplayTimeSlots() {
+    const duration = $('#duration').val();
+    const examDate = $('#exam_date').val();
+    const courseCode = $('#course_code').val();
+    const suggestedTimesContainer = $('#suggested-times');
+
+    // Clear existing content
+    suggestedTimesContainer.empty();
+
+    // Validate inputs
+    if (!duration || !examDate || !courseCode) {
+        suggestedTimesContainer.html(
+            !duration ? '<p class="text-muted">Please select a duration to see suggestions</p>' :
+            !examDate ? '<p class="text-muted">Please select a date to see suggestions</p>' :
+            '<p class="text-muted">Please fill in all required fields</p>'
+        );
+        return;
+    }
+
+    // Show loading message
+    suggestedTimesContainer.html('<p>Loading available time slots...</p>');
+
+    // Abort previous request if it exists
+    if (currentRequest) {
+        currentRequest.abort();
+    }
+
+    // Make new request
+    currentRequest = $.ajax({
+        url: '/fetch-available-slots',
+        method: 'POST',
+        data: {
+            course_code: courseCode,
+            exam_date: examDate,
+            duration: duration,
+            _token: $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    currentRequest.done(function(response) {
+        suggestedTimesContainer.empty();
+
+        if (Array.isArray(response) && response.length > 0) {
+            // Build HTML for all slots
+            const slotsHTML = response.map(slot => {
+                const range = calculateTimeRange(slot, duration);
+                const radioId = `time_${slot.replace(':', '_')}`;
+                return `
+                    <div class="form-check mb-2">
+                        <input type="radio" 
+                               class="form-check-input" 
+                               name="selected_time" 
+                               value="${slot}" 
+                               id="${radioId}" 
+                               required>
+                        <label class="form-check-label" for="${radioId}">
+                            ${range}
+                        </label>
+                    </div>
+                `;
+            }).join('');
+
+            // Insert all at once
+            suggestedTimesContainer.html(slotsHTML);
+        } else {
+            // Fallback to a default suggestion
+            const defaultRange = calculateTimeRange('20:00', duration);
+            suggestedTimesContainer.html(`<p class="text-muted">No available slots found. ${defaultRange} is suggested.</p>`);
+        }
+    });
+
+    currentRequest.fail(function(xhr, status, error) {
+        console.error('Ajax error:', {
+            status,
+            error,
+            response: xhr.responseText
+        });
+
+        suggestedTimesContainer.html(`
+            <div class="alert alert-danger">
+                Failed to fetch available slots. Please try again.
+            </div>
+        `);
+    });
+
+    currentRequest.always(function() {
+        currentRequest = null;
+    });
+}
+
+// Function to calculate and format time range
+function calculateTimeRange(startTimeStr, durationStr) {
+    // Parse start time
+    const [startHour, startMinute] = startTimeStr.split(':').map(num => parseInt(num, 10));
+    const startTime = new Date();
+    startTime.setHours(startHour, startMinute, 0);
+
+    // Parse duration
+    const [durationHours, durationMinutes] = durationStr.split(':').map(num => parseInt(num, 10));
+    
+    // Calculate end time
+    const endTime = new Date(startTime);
+    endTime.setMinutes(startTime.getMinutes() + (durationHours * 60) + durationMinutes);
+
+    // Format both times
+    const formattedStart = startTime.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+    }).replace(/\s/g, '');
+
+    const formattedEnd = endTime.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+    }).replace(/\s/g, '');
+
+    return `${formattedStart} - ${formattedEnd}`;
+}
+
+// Attach event listener to fields
+$(document).on('change', '#exam_date, #duration', fetchAndDisplayTimeSlots);
+
+// Initialize on page load if both fields are filled
+$(document).ready(fetchAndDisplayTimeSlots);
+
+
+// Remove any existing event listeners first
+$('#exam_date, #duration').off('change');
+
+// Add event listeners
+$('#exam_date, #duration').on('change', function() {
+    fetchAvailableTimeSlots();
+});
+
+// Initialize on page load if both date and duration are already selected
+$(document).ready(function() {
+    if ($('#exam_date').val() && $('#duration').val()) {
+        fetchAvailableTimeSlots();
+    }
+});
+
+$('#duration').on('change', function () {
+    const duration = $(this).val();
+    const examDate = $('#exam_date').val();
+    const courseCode = $('#course_code').val();
+    const suggestedTimesContainer = $('#suggested-times');
+    
+    suggestedTimesContainer.empty();
+
+    if (!duration || !examDate || !courseCode) {
+        suggestedTimesContainer.html('<p class="text-danger">Please fill in all required fields</p>');
+        return;
+    }
+
+    suggestedTimesContainer.html('<p>Loading available time slots...</p>');
+
+    $.ajax({
+        url: '/fetch-available-slots',
+        method: 'POST',
+        data: {
+            course_code: courseCode,
+            exam_date: examDate,
+            duration: duration,
+            _token: $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (response) {
+            suggestedTimesContainer.empty();
+            
+            if (Array.isArray(response) && response.length > 0) {
+                response.forEach(slot => {
+                    // Create a Date object for formatting (use current date as base)
+                    const timeStr = slot.split(':');
+                    const date = new Date();
+                    date.setHours(parseInt(timeStr[0], 10));
+                    date.setMinutes(parseInt(timeStr[1], 10));
+                    
+                    const formattedTime = date.toLocaleTimeString('en-US', {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: true
+                    });
+                    
+                    suggestedTimesContainer.append(`
+                        <div class="form-check mb-2">
+                            <input type="radio" class="form-check-input" name="selected_time" value="${slot}" id="time_${slot.replace(':', '_')}" required>
+                            <label class="form-check-label" for="time_${slot.replace(':', '_')}">
+                                ${formattedTime}
+                            </label>
+                        </div>
+                    `);
+                });
+            } else {
+                suggestedTimesContainer.html('<p class="text-muted">No available slots found. 9:00 PM is suggested.</p>');
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error('Error details:', {
+                status: status,
+                error: error,
+                response: xhr.responseText
+            });
+            
+            let errorMessage = 'Failed to fetch available slots. Please try again.';
+            if (xhr.responseJSON && xhr.responseJSON.error) {
+                errorMessage = xhr.responseJSON.error;
+            }
+            
+            suggestedTimesContainer.html(`
+                <div class="alert alert-danger">
+                    ${errorMessage}
+                </div>
+            `);
+        }
+    });
+
+
+});
 
 </script>
 @endsection

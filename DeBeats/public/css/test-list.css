@@ -1,0 +1,185 @@
+/* Container and Card Styling */
+.container {
+    max-width: 95%;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* Course Section Styling */
+.course-header {
+    background: #fff6ef;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.course-info-container {
+    display: flex;
+    justify-content: flex-start;
+    gap: 3rem;
+    align-items: center;
+}
+
+.course-info-box {
+    padding: 1rem 1.5rem;
+    background: white;
+    border-radius: 8px;
+    border-left: 4px solid #ffc107;
+    min-width: 200px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.course-label {
+    font-size: 0.85rem;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.course-value {
+    font-size: 1.2rem;
+    color: #2c3e50;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+/* Test Slots Card */
+.card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
+    background: linear-gradient(to right, #edae00, #ffc107);
+    padding: 1rem 1.5rem;
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* Table Styling */
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.table th,
+.table td {
+    padding: 0.7rem;
+    vertical-align: middle;
+    border-bottom: 1px solid #eee;
+    font-size: 0.9rem;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+/* Table Column Widths */
+.table th:nth-child(1), 
+.table td:nth-child(1) { width: 5%; }  /* No. */
+.table th:nth-child(2),
+.table td:nth-child(2) { width: 10%; } /* Capacity */
+.table th:nth-child(3),
+.table td:nth-child(3) { width: 12%; } /* Exam Date */
+.table th:nth-child(4),
+.table td:nth-child(4) { width: 10%; } /* Duration */
+.table th:nth-child(5),
+.table td:nth-child(5) { width: 12%; } /* Time */
+.table th:nth-child(6),
+.table td:nth-child(6) { width: 12%; } /* Test Type */
+.table th:nth-child(7),
+.table td:nth-child(7) { width: 10%; } /* Type */
+.table th:nth-child(8),
+.table td:nth-child(8) { width: 11%; } /* Venue */
+.table th:nth-child(9),
+.table td:nth-child(9) { 
+    width: 10%;
+    text-align: center; 
+} /* Test Paper */
+.table th:nth-child(10),
+.table td:nth-child(10) { 
+    width: 8%;
+    text-align: center; 
+} /* Action */
+
+/* Icon Styling */
+.action-icon, 
+.file-icon {
+    width: 40px;
+    height: auto;
+    transition: transform 0.2s;
+}
+
+.action-icon:hover, 
+.file-icon:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+/* Alert Styling */
+.alert {
+    margin: 1rem;
+    padding: 0.8rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+/* Button Styling */
+.btn-success {
+    background-color: #28a745;
+    border: none;
+    padding: 0.4rem 1rem;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    color: white;
+    transition: all 0.2s;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Table Striped & Hover Effects */
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.table tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.04);
+}
+
+.table-danger {
+    background-color: #fff3f3 !important;
+    border-left: 3px solid #dc3545;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .course-info-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .course-info-box {
+        width: 100%;
+    }
+
+    .table {
+        font-size: 0.85rem;
+    }
+
+    .table th,
+    .table td {
+        padding: 0.5rem;
+    }
+}

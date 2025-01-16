@@ -1,0 +1,251 @@
+/* Container and Card Layout */
+.container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    padding: 0;
+}
+
+.card-header {
+    background: linear-gradient(to right, #edae00, #ffc107);
+    color: #333;
+    padding: 1.2rem;
+    border-radius: 12px 12px 0 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+/* Form Layout */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Form Groups */
+.mb-3 {
+    margin: 0;
+    position: relative;
+}
+
+/* Labels */
+.form-label {
+    display: block;
+    font-weight: 500;
+    color: #444;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+/* Form Controls */
+.form-control {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    background-color: #fff;
+}
+
+.form-control:focus {
+    border-color: #ff9800;
+    box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.1);
+    outline: none;
+}
+
+/* Select Styling */
+select.form-control {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23444' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+    cursor: pointer;
+}
+
+select.form-control option {
+    padding: 0.5rem;
+    font-size: 0.95rem;
+}
+
+/* Venue List Styling */
+#venue-list {
+    background: #fff;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 0.5rem;
+}
+
+#venue-list div {
+    padding: 0.75rem 1rem;
+    margin: 0.5rem 0;
+    border-radius: 6px;
+    background: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    transition: all 0.2s ease;
+}
+
+#venue-list div:hover {
+    background: #fff9e6;
+    border-color: #ffd54f;
+    transform: translateY(-1px);
+}
+
+#venue-list span {
+    color: #444;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* No venues message */
+#venue-list p {
+    text-align: center;
+    color: #666;
+    padding: 1rem;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+/* Date Input Styling */
+input[type="date"].form-control {
+    position: relative;
+    padding-right: 2.5rem;
+    cursor: pointer;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+/* File Input Styling */
+#fileInput {
+    padding: 1rem;
+    background: #f8f9fa;
+    border: 2px dashed #e0e0e0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#fileInput:hover {
+    border-color: #ff9800;
+    background: #fff9e6;
+}
+
+#filePreview {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+}
+
+/* Time Slots Styling */
+#suggested-times {
+    background: #fff;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 1rem;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+#suggested-times .form-check {
+    padding: 0.75rem 1rem;
+    margin: 0.5rem 0;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    background: #f8f9fa;
+    border: 1px solid #e0e0e0;
+}
+
+#suggested-times .form-check:hover {
+    background: #fff9e6;
+    border-color: #ffd54f;
+    transform: translateY(-1px);
+}
+
+#suggested-times .form-check-input {
+    margin-top: 0.25rem;
+}
+
+#suggested-times .form-check-label {
+    padding-left: 0.75rem;
+    color: #444;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+#suggested-times .form-check input[type="radio"]:checked + label {
+    color: #ff9800;
+    font-weight: 600;
+}
+
+/* Submit Button */
+.btn-primary {
+    background-color: #ff9800;
+    border: none;
+    padding: 0.75rem 2.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    margin: 2rem auto 0;
+    display: block;
+}
+
+.btn-primary:hover {
+    background-color: #f57c00;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(255, 152, 0, 0.2);
+}
+
+/* Alert Styling */
+.alert {
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+}
+
+.alert-danger {
+    background-color: #fff3f3;
+    border: 1px solid #ffcdd2;
+    color: #dc3545;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 1rem;
+    }
+    
+    .card-body {
+        padding: 1.5rem;
+    }
+    
+    .btn-primary {
+        width: 100%;
+    }
+    
+    #venue-list {
+        max-height: 250px;
+        overflow-y: auto;
+    }
+}

@@ -3,12 +3,25 @@
 @section('title', 'Test List')
 
 @section('content')
-<link rel="stylesheet" href="{{asset('css/exam-list.css')}}">
+<link rel="stylesheet" href="{{asset('css/test-list.css')}}">
 
-<div class="container">
+<div class="course-header">
+    <div class="course-info-container">
+        <div class="course-info-box">
+            <div class="course-label">Course Code</div>
+            <div class="course-value">{{ $testSlots[0]->course_code ?? 'N/A' }}</div>
+        </div>
+        <div class="course-info-box">
+            <div class="course-label">Course Name</div>
+            <div class="course-value">{{ $testSlots[0]->course_name ?? 'N/A' }}</div>
+        </div>
+    </div>
+</div>
+
+    <!-- Test Slots Card -->
     <div class="card">
         <div class="card-header">
-            Exam Slots
+            Test Slots
             <a href="/add/test" class="btn btn-success btn-sm float-end">Add New Test Slot</a>
         </div>
         @if (Session::has('success'))
@@ -21,11 +34,10 @@
             <table class="table table-sm table-striped table-bordered">
                 <thead>
                     <th>No.</th>
-                    <th>Course Code</th>
-                    <th>Course Name</th>
                     <th>Capacity</th>
                     <th>Exam Date</th>
                     <th>Duration</th>
+                    <th>Time</th>
                     <th>Test Type</th>
                     <th>Type</th>
                     <th>Venue</th>
@@ -37,30 +49,32 @@
                         @foreach ($testSlots as $item)
                             <tr class="{{ $item->is_clashing ? 'table-danger' : '' }}">
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->course_code }}</td>
-                                <td>{{ $item->course_name }}</td>
                                 <td>{{ $item->capacity }}</td>
                                 <td>{{ $item->exam_date }}</td>
                                 <td>{{ $item->duration }}</td>
+                                <td>{{ $item->selected_time }}</td>
                                 <td>{{ $item->exam_type }}</td>
                                 <td>{{ $item->type }}</td>
                                 <td>{{ $item->venue_short }}</td>
-                                <td> @if ($item->file_path)
-                                        <a href="{{ asset('storage/' . $item->file_path) }}" target="_blank">View File</a>
+                                <td class="text-center">
+                                    @if ($item->file_path)
+                                        <a href="{{ asset('storage/' . $item->file_path) }}" target="_blank">
+                                            <img src="{{ asset('images/file.png') }}" alt="File Logo" class="file-icon"/>
+                                        </a>
                                     @else
-                                        No File Uploaded
+                                        No File
                                     @endif
                                 </td>
-                                
-
-
- 
-                                <td><a href="/delete/{{ $item->id }}" class="btn btn-danger btn-sm">Delete</a></td> 
+                                <td class="text-center">
+                                    <a href="/delete/{{ $item->id }}" target="_blank">
+                                        <img src="{{ asset('images/delete.webp') }}" alt="Bin Logo" class="action-icon"/>
+                                    </a>
+                                </td>
                             </tr>    
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="9">No Test Slots Found!</td>
+                            <td colspan="10" class="text-center">No Test Slots Found!</td>
                         </tr>
                     @endif
                 </tbody>
@@ -68,11 +82,7 @@
         </div>
     </div>
 </div>
-
 @endsection
-
-
-
 @section('scripts')
 <script>
 export default {
