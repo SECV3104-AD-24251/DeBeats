@@ -54,6 +54,12 @@
                             </a>
                         </li>
                         <li>
+                            <a href="{{ url('/exam_schedule') }}">
+                                <i class="icon-exam-schedule"></i>
+                                <span>Exam Schedule</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ route('getConflictManagement') }}">
                                 <i class="conflict management"></i>
                                 <span>Conflict Management</span>

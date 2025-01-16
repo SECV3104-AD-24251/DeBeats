@@ -1,17 +1,11 @@
 <?php
-
-
 namespace App\Http\Controllers;
-
 use Carbon\Carbon;
 use App\Models\Course;
 use App\Models\Venue;
 use App\Models\ClashReport;
 use App\Models\ExamSlot;
 use Illuminate\Http\Request;
-
-
-
 
 class ExamSlotController extends Controller
 {
@@ -68,12 +62,43 @@ class ExamSlotController extends Controller
         return view('exam_list', compact('examSlots', 'clashNotifications'));
     }
     
+    public function getConflictingTimes(Request $request)
+    {
+        $examDate = $request->input('exam_date');
+        $startTime = $request->input('start_time');
+        $duration = $request->input('duration');
+        
+        // Parse the start time and duration into DateTime objects
+        $startDateTime = Carbon::createFromFormat('H:i', $startTime);  // assuming start time is in 'H:i' format
+        $durationParts = explode(':', $duration);
+        $durationHours = (int)$durationParts[0];
+        $durationMinutes = (int)$durationParts[1];
+        
+        // Calculate end time of the new exam
+        $endDateTime = $startDateTime->copy()->addHours($durationHours)->addMinutes($durationMinutes);
+        
+        // Query for all existing exam slots on the same day
+        $conflictingSlots = ExamSlot::where('exam_date', $examDate)->get();
+        
+        // Initialize an array to hold conflicting times
+        $conflictingTimes = [];
+        
+        // Check for overlapping time ranges
+        foreach ($conflictingSlots as $slot) {
+            $existingStart = Carbon::parse($slot->start_time); // Assuming 'start_time' is a string like '08:00'
+            $existingEnd = $existingStart->copy()->addHours($slot->duration_hours)->addMinutes($slot->duration_minutes);
+            
+            // Check if there is any overlap between the new exam and the existing exam
+            if (($startDateTime < $existingEnd && $endDateTime > $existingStart)) {
+                // Add conflicting start times to the array
+                $conflictingTimes[] = $slot->start_time;
+            }
+        }
     
-
-
-
-
-
+        // Return the conflicting times
+        return response()->json(['conflicting_times' => $conflictingTimes]);
+    }
+    
 
     // Show the form for creating a new exam slot
     public function loadAddExamSlotForm(){
@@ -94,10 +119,25 @@ class ExamSlotController extends Controller
         ]);
 
 
-        $request->merge([
-            'start_time' => Carbon::createFromFormat('H:i', $request->start_time)->format('H:i'),
-            'end_time' => Carbon::createFromFormat('H:i', $request->end_time)->format('H:i'),
-        ]);
+        // Parse the provided start time and calculate duration
+    $startTime = Carbon::parse($request->input('start_time'));
+    $endTime = Carbon::parse($request->input('end_time'));
+    $studentIds = \App\Models\StudentRegistration::where('course_code', $request->input('course_code'))
+        ->pluck('UTMID')
+        ->toArray();
+
+    // Check for clashes
+    if ($this->hasClash($request->input('exam_date'), $startTime, $endTime, $studentIds)) {
+        // Suggest an available date
+        $suggestion = $this->suggestAvailableDate($request);
+
+       if ($suggestion->getData()->success) {
+            // Auto-fill the date with the suggested available date
+            $request->merge(['exam_date' => $suggestion->getData()->suggested_date]);
+        } else {
+            return redirect()->back()->with('fail', 'Clash detected, and no available slots within the next 30 days.');
+        }
+    }
    
         // Check if an exam slot already exists for the course
         $existingExamSlot = ExamSlot::where('course_code', $request->course_code)->first();
@@ -139,10 +179,6 @@ class ExamSlotController extends Controller
         ]);
 
 
-  //      $request->merge([
-    //        'start_time' => Carbon::createFromFormat('H:i', $request->start_time)->format('H:i'),
-      //      'end_time' => Carbon::createFromFormat('H:i', $request->end_time)->format('H:i'),
-        //]);
    
         try {
             // Check for conflicting schedules
@@ -234,19 +270,6 @@ class ExamSlotController extends Controller
 }
 
 
-   
-
-
-
-
-     
-
-
-
-
-
-
-
 
     // Delete an exam slot
     public function deleteExamSlot($id){
@@ -259,8 +282,6 @@ class ExamSlotController extends Controller
     }
 
 
-
-
    // In ExamSlotController.php
    public function getCourseName(Request $request)
 {
@@ -268,21 +289,18 @@ class ExamSlotController extends Controller
     $examDate = $request->input('exam_date', null); // Default to null
     $startTime = $request->input('start_time', null);
     $endTime = $request->input('end_time', null);
-
-
-
+    $venueType = $request->input('venue_type', null); 
 
     // Fetch the course
     $course = Course::where('course_code', $courseCode)->first();
-
-
-
 
     if ($course) {
         // Query for available venues
         $venueQuery = Venue::where('capacity', '>=', $course->capacity);
 
-
+        if ($venueType) {
+            $venueQuery->where('type', $venueType); // Filter by venue type
+        }
 
 
         if ($examDate && $startTime && $endTime) {
@@ -299,11 +317,16 @@ class ExamSlotController extends Controller
             });
         }
 
-
-
-
         $availableVenues = $venueQuery->get();
+        if ($availableVenues->isEmpty()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No available venues found',
+            ]);
+        }
 
+        // Randomly select one venue
+        $randomVenue = $availableVenues->random();
 
 
 
@@ -311,40 +334,25 @@ class ExamSlotController extends Controller
             'success' => true,
             'course_name' => $course->course_name,
             'capacity' => $course->capacity,
-            'venues' => $availableVenues,
+            'venue_short' => $randomVenue->venue_short, 
+               'venue_name' => $randomVenue->venue_name, 
+               'venue_capacity' => $randomVenue->capacity, 
         ]);
     } else {
         return response()->json([
             'success' => false,
+            'message' => 'Course not found',
         ]);
     }
 }
-
-
-
-
-
-
-
 
 public function getExamSlotsForDate($month, $year)
 {
     $examSlots = ExamSlot::whereMonth('exam_date', $month)
         ->whereYear('exam_date', $year)
         ->get();
-
-
-
-
     return response()->json($examSlots);
 }
-
-
-
-
-
-
-
 
 public function getConflictManagement()
 {
@@ -355,9 +363,6 @@ public function getConflictManagement()
     // Pass the clash reports to the view
     return view('conflict-management', compact('clashReports'));
 }
-
-
-
 
 public function validateCourseCode(Request $request)
 {
@@ -381,8 +386,71 @@ public function validateCourseCode(Request $request)
     }
 }
 
+public function getExamSchedule()
+{
+    $examSlots = ExamSlot::orderBy('exam_date')->orderBy('start_time')->get();
 
+    // Group the slots by exam date
+    $groupedSlots = $examSlots->groupBy('exam_date');
 
+    return view('exam_schedule', compact('groupedSlots'));
+}
+
+public function suggestAvailableDate(Request $request)
+{
+    $startTime = Carbon::parse($request->input('start_time'));
+    $duration = Carbon::parse($request->input('duration'))->diffInMinutes(Carbon::createFromFormat('H:i', '00:00'));
+    $endTime = $startTime->copy()->addMinutes($duration);
+    $studentIds = \App\Models\StudentRegistration::where('course_code', $request->input('course_code'))
+        ->pluck('UTMID')
+        ->toArray();
+
+    $startRange = Carbon::today()->addDays(14); //start range starts from 14 weeks from today
+    $endRange = $startRange->copy()->addDays(30);
+
+    // Generate an array of dates within the range
+    $dateRange = [];
+    for ($date = $startRange->copy(); $date <= $endRange; $date->addDay()) {
+        $dateRange[] = $date->toDateString();
+    }
+
+    // Shuffle the date range to ensure randomness
+    shuffle($dateRange);
+
+    // Check dates in random order
+    foreach ($dateRange as $examDate) {
+        $dailySlots = ExamSlot::where('exam_date', $examDate)->count();
+        if (!$this->hasClash($examDate, $startTime, $endTime, $studentIds)) {
+            return response()->json([
+                'success' => true,
+                'suggested_date' => $examDate,
+                'message' => 'Suggested date is available.',
+            ]);
+        }
+    }
+
+    return response()->json([
+        'success' => false,
+        'message' => 'No available slots within the next 30 days.',
+    ]);
+}
+
+private function hasClash($examDate, $startTime, $endTime, $studentIds)
+{
+    return ExamSlot::where('exam_date', $examDate)
+        ->where(function ($query) use ($startTime, $endTime) {
+            $query->whereBetween('start_time', [$startTime, $endTime])
+                ->orWhereBetween('end_time', [$startTime, $endTime])
+                ->orWhere(function ($q2) use ($startTime, $endTime) {
+                    $q2->where('start_time', '<=', $startTime)
+                        ->where('end_time', '>=', $endTime);
+                });
+        })
+        ->whereHas('studentRegistrations', function ($query) use ($studentIds) {
+            $query->whereIn('UTMID', $studentIds);
+        })
+        ->exists();
+}
 
 
 

@@ -29,7 +29,7 @@ Route::get('/dashboard/lecturerDash', [LecturerDashboardController::class, 'inde
 // Show all exam slots
 Route::get('/exam_list', [ExamSlotController::class, 'loadAllExamSlots']);
 Route::get('/add/exam', [ExamSlotController::class, 'loadAddExamSlotForm']);
-
+Route::get('/exam_schedule', [ExamSlotController::class, 'getExamSchedule']);
 Route::post('/add/exam', [ExamSlotController::class, 'AddExamSlot'])->name('AddExamSlot');
 
 // Edit an exam slot
@@ -72,9 +72,9 @@ Route::get('/add-exam-slot/{date}', [ExamSlotController::class, 'loadAddExamSlot
 // Route to fetch exam slots for a specific month
 Route::get('/exam-slots/{month}/{year}', [ExamSlotController::class, 'getExamSlotsForDate']);
 
-Route::get('/fetch-tests', [TestSlotController::class, 'fetchTests']);
-Route::get('/add/test', [TestSlotController::class, 'loadAddTestSlotForm']);
-Route::post('/add/test', [TestSlotController::class, 'AddTestSlot'])->name('AddTestSlot');
+//Route::get('/fetch-tests', [TestSlotController::class, 'fetchTests']);
+//Route::get('/add/test', [TestSlotController::class, 'loadAddTestSlotForm']);
+//Route::post('/add/test', [TestSlotController::class, 'AddTestSlot'])->name('AddTestSlot');
 
 
 Route::get('/validate-course-code', [ExamSlotController::class, 'validateCourseCode']);
@@ -112,6 +112,7 @@ Route::get('/test_list', [TestSlotController::class, 'loadAllTestSlots']);
 Route::get('/add/test', [TestSlotController::class, 'loadAddTestSlotForm']);
 Route::post('/add/test', [TestSlotController::class, 'AddTestSlot'])->name('AddTestSlot');
 Route::get('/add-test-slot', function () {return view('add-test-slot');})->name('add.test.slot');
+Route::get('/add-test-slot', [TestSlotController::class, 'loadAddTestSlotForm'])->name('add.test.slot');
 Route::get('/delete/{id}', [TestSlotController::class, 'deleteTestSlot']);
 
 Route::get('/booked-dates', [TestSlotController::class, 'getBookedDates']);
@@ -123,6 +124,13 @@ Route::post('/upload/{id}', [TestSlotController::class, 'uploadFile'])->name('up
 Route::get('/course/details/{course_code}', [TestSlotController::class, 'getCourseDetails'])->name('getCourseDetails');
 
 Route::get('/venues/{type}', [TestSlotController::class, 'getVenuesByType']);
+Route::get('/check-available-date', [ExamSlotController::class, 'suggestAvailableDate']);
+
+Route::get('/get-venues-by-type', [ExamSlotController::class, 'getVenuesByType']);
+Route::get('/available-slots', [TestSlotController::class, 'getAvailableSlots']);
+
+Route::get('/suggest-venues', [TestSlotController::class, 'suggestVenues']);
+Route::post('/fetch-available-slots', [TestSlotController::class, 'fetchAvailableSlots']);
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

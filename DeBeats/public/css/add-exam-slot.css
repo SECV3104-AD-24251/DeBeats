@@ -1,55 +1,166 @@
-/* Compact form styling */
+/* Clean container styling */
+.container {
+    max-width: 900px;
+    margin: 3rem auto;
+    padding: 0 2rem;
+}
+
 .card {
-    padding: 30px; /* Reduced padding */
-    font-size: 1rem; /* Slightly smaller font */
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+    border: none;
+    padding: 2.5rem 3rem;
 }
 
 .card-header {
+    background: none;
+    border: none;
     font-size: 1.5rem;
-    margin-bottom: 20px; /* Reduced margin */
+    font-weight: 600;
+    color: #2c3e50;
+    padding: 0;
+    margin-bottom: 2.5rem;
+    position: relative;
+    text-align: center;
 }
 
-.form-group {
-    margin-bottom: 15px; /* Tighter spacing between form groups */
+.card-header:after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: #ff9800;
+    margin: 1rem auto 0;
+    border-radius: 2px;
+}
+
+.card-body {
+    padding: 0;
+}
+
+/* Form grid layout */
+form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.mb-3 {
+    margin: 0;
+    position: relative;
+}
+
+/* Full width elements */
+.mb-3:last-child {
+    grid-column: 1 / -1;
+}
+
+/* Form elements styling */
+.form-label {
+    display: block;
+    font-weight: 500;
+    color: #455a64;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.3px;
 }
 
 .form-control {
-    font-size: 1rem; /* Smaller font size */
-    padding: 10px; /* Reduced padding */
-    margin-bottom: 10px; /* Tighter spacing */
-    height: 40px; /* Consistent height for all inputs */
-    width: 100%; /* Ensure full width */
+    width: 100%;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    height: 2.8rem;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    background-color: #ffffff;
 }
 
-/* Ensure all input fields are the same length and aligned */
-.form-row .form-control {
-    width: 100%; /* Full width within rows */
+.form-control:focus {
+    border-color: #ff9800;
+    box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.1);
+    outline: none;
 }
 
-/* Slightly smaller button */
+select.form-control {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23555' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+}
+
+/* Button container */
+.btn-container {
+    grid-column: 1 / -1;
+    text-align: left;     /* Align to the left instead of center */
+    margin-top: 0.5rem;   /* Reduced top margin */
+    padding-left: 0;      /* Remove any left padding */
+}
+
 .btn-primary {
-    font-size: 1rem;
-    padding: 10px 20px;
-    height: 45px; /* Consistent height */
+    background-color: #ff9800;
+    border: none;
+    border-radius: 6px;
+    padding: 0.6rem 1.8rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    min-width: 120px;
 }
 
-/* Responsive adjustments */
+.btn-primary:hover {
+    background-color: #f57c00;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 152, 0, 0.2);
+}
+
+/* Rest of the CSS remains the same */
+
+/* Error messages */
+.alert {
+    grid-column: 1 / -1;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.text-danger {
+    position: absolute;
+    bottom: -1.25rem;
+    left: 0;
+    font-size: 0.8rem;
+    color: #dc3545;
+}
+
+/* Readonly inputs */
+input[readonly] {
+    background-color: #f8f9fa;
+    color: #666;
+    cursor: not-allowed;
+}
+
+/* Responsive design */
 @media (max-width: 768px) {
+    .container {
+        margin: 1.5rem auto;
+        padding: 0 1rem;
+    }
+
     .card {
-        padding: 20px;
+        padding: 1.5rem;
+    }
+
+    form {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .card-header {
+        font-size: 1.3rem;
+        margin-bottom: 2rem;
     }
 }
 
-.btn{
-    background-color: #F0C479;
-}
-
-/* Button hover effect */
-.btn-primary:hover {
-    background-color: #e78f00; /* Darker blue on hover */
-}
-
-.error-message {
-    color: red;
-    font-size: 14px;
-}
