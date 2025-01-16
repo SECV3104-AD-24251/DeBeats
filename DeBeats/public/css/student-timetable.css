@@ -1,0 +1,62 @@
+.timetable {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    margin-top: 20px;
+}
+
+.timetable th, .timetable td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    vertical-align: middle;
+}
+
+.timetable th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+.timetable td {
+    background-color: #fff;
+    min-width: 130px;
+    height: 60px;
+}
+
+.timetable td.time-slot {
+    background-color: #f0f0f0;
+    font-weight: bold;
+    width: 120px;
+}
+
+.course-info {
+    font-size: 0.9em;
+    padding: 5px;
+}
+
+.has-class {
+    background-color: #e3f2fd;
+}
+
+.course-code {
+    color: #666;
+    font-size: 0.85em;
+    display: block;
+    margin-top: 4px;
+}
+
+.timetable-container {
+    padding: 20px;
+    overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+    .timetable td {
+        min-width: 100px;
+        padding: 5px;
+    }
+    
+    .course-info {
+        font-size: 0.8em;
+    }
+}

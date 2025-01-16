@@ -197,4 +197,25 @@ class StudExamListController extends Controller
     return redirect()->route('status.clash.report')->with('success', 'Clash report submitted successfully.');
     }
     
+    public function getStudentTimetable()
+    {
+        // Get the logged-in student's information
+        $student = Auth::user();
+        
+        // Get the registered courses for the student
+        $registeredCourses = StudentRegistration::where('UTMID', $student->UTMID)
+                                                ->pluck('course_code');
+        
+        // Fetch the timetable details for the registered courses
+        $timetable = \DB::table('student_timetable')
+                        ->whereIn('course_code', $registeredCourses)
+                        ->orderBy('day')
+                        ->orderBy('start_time')
+                        ->get();
+        
+        return view('student-timetable', [
+            'student' => $student,
+            'timetable' => $timetable,
+        ]);
+    }
 }
